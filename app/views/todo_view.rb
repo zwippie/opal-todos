@@ -45,7 +45,6 @@ class TodoView < Vienna::View
   end
 
   def finish_editing
-    puts "Finished editing #{@todo.id}", @todo
     value = @input.value.strip
     @element.remove_class 'editing'
     value.empty? ? clear : @todo.update(:title => value)

@@ -34,11 +34,6 @@ class AppView < Vienna::View
     self.render_element
   end
 
-  def remove_with_nil_id(todo)
-    # todos = Todo.all.select{|t| t.id.nil? }
-    # Todo.all.delete_if {|t| t.id.nil? }
-  end
-
   def add_todo(todo)
     view = TodoView.new todo
     view.render_element
@@ -48,7 +43,7 @@ class AppView < Vienna::View
   def render
     @completed = Todo.completed.size
     @active = Todo.active.size
-puts "active #{@active}"
+
     @footer.html = template.render(self)
   end
 
