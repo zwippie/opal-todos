@@ -21,28 +21,34 @@ class AppView < Vienna::View
     @input = Element.find '#new-todo'
     @footer = Element.find '#footer'
 
+    Todo.on(:refresh) { |todos| todos.each { |todo| add_todo(todo) }; render }
     Todo.on(:create) { |todo| add_todo(todo); render }
-    Todo.on(:update) { render }
+    Todo.on(:update) { |todo| render }
     Todo.on(:destroy) { render }
 
-    Todo.adapter.find_all(Todo) do |models|
-      models.each { |m| add_todo m }
+    Todo.adapter.fetch(Todo) do |todos|
+      todos.each { |todo| add_todo todo }
     end
 
     self.element
-    self.render
+    self.render_element
+  end
+
+  def remove_with_nil_id(todo)
+    # todos = Todo.all.select{|t| t.id.nil? }
+    # Todo.all.delete_if {|t| t.id.nil? }
   end
 
   def add_todo(todo)
     view = TodoView.new todo
-    view.render
+    view.render_element
     Element.find('#todo-list') << view.element
   end
 
   def render
     @completed = Todo.completed.size
     @active = Todo.active.size
-
+puts "active #{@active}"
     @footer.html = template.render(self)
   end
 

@@ -1,9 +1,13 @@
-require 'vienna/adapters/local'
+require 'vienna/adapters/rest'
+require 'vienna/eventable'
 
 class Todo < Vienna::Model
-  adapter Vienna::LocalAdapter
+  extend Vienna::Eventable
 
-  attributes :title, :completed
+  adapter Vienna::RESTAdapter
+  url 'http://192.168.178.40:3000/todos'
+
+  attributes :id, :title, :completed
 
   alias completed? completed
 

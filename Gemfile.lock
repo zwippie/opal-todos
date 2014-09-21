@@ -21,9 +21,8 @@ GIT
       source_map
       sprockets
 
-GIT
-  remote: git://github.com/opal/vienna.git
-  revision: 709d1475b4302346cb779dc39d1432638119bbbe
+PATH
+  remote: ../vienna
   specs:
     vienna (0.0.2)
       opal (>= 0.5.0, < 1.0.0)

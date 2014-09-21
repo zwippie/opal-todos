@@ -1,6 +1,4 @@
-require 'vienna/template_view'
-
-class TodoView < Vienna::TemplateView
+class TodoView < Vienna::View
   template :todo
 
   on :dblclick, 'label' do
@@ -26,6 +24,7 @@ class TodoView < Vienna::TemplateView
 
   def initialize(todo)
     @todo = todo
+    # @todo.on(:create) { |todo| puts "Added todo with id @todo.id"; @todo.id = todo.id; render }
     @todo.on(:update) { render }
     @todo.on(:destroy) { remove }
     @todo.on(:filter) { |filter| apply_filter filter }
@@ -46,6 +45,7 @@ class TodoView < Vienna::TemplateView
   end
 
   def finish_editing
+    puts "Finished editing #{@todo.id}", @todo
     value = @input.value.strip
     @element.remove_class 'editing'
     value.empty? ? clear : @todo.update(:title => value)
