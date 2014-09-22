@@ -6,15 +6,16 @@ require 'vienna'
 
 require 'views/app_view'
 require 'views/todo_view'
+require 'views/todos_view'
 
 require 'templates/footer'
-require 'templates/todo'
+require 'templates/todo/todo'
 
 require 'models/todo'
 
 class Application
   def run
-    @app_view = AppView.new
+    @app_view = TodosView.new
     router.update
   end
 

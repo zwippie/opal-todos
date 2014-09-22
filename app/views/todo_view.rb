@@ -1,5 +1,5 @@
 class TodoView < Vienna::View
-  template :todo
+  template 'todo/todo'
 
   on :dblclick, 'label' do
     @element.add_class 'editing'
